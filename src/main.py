@@ -14,9 +14,6 @@ from src.routes.media import media_bp
 from src.routes.forum import forum_bp
 
 app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
-@app.route("/")
-def home():
-    return "Hello, Flask no Coolify!"
 app.config['SECRET_KEY'] = 'asdf#FGSgvasgf$5$WGT'
 
 # Configure CORS
@@ -63,4 +60,4 @@ def serve(path):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=8000, debug=True)
