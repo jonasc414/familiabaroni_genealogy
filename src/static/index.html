@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Família Baroni - Árvore Genealógica</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-tree me-2"></i>Família Baroni</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tree">Árvore Genealógica</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#social">Rede Social</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#gallery">Galeria</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#albums">Álbuns</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#forum">Fórum</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#guestbook">Livro de Visitas</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav" id="authNav">
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light me-2" onclick="showLogin()">Entrar</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-light" onclick="showRegister()">Registrar</button>
+                    </li>
+                </ul>
+                <ul class="navbar-nav d-none" id="userNav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user me-1"></i><span id="userName"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#profile"><i class="fas fa-user me-2"></i>Perfil</a></li>
+                            <li><a class="dropdown-item" href="#connections"><i class="fas fa-link me-2"></i>Minhas Conexões</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Sair</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="mainContent">
+        <!-- Home Section -->
+        <section id="home" class="hero-section">
+            <div class="container">
+                <div class="row align-items-center min-vh-100">
+                    <div class="col-lg-6">
+                        <h1 class="display-4 fw-bold text-primary mb-4">Família Baroni</h1>
+                        <p class="lead mb-4">Descubra suas raízes e conecte-se com sua família. Explore nossa árvore genealógica e faça parte da nossa comunidade.</p>
+                        <div class="d-flex gap-3">
+                            <button class="btn btn-primary btn-lg" onclick="showRegister()">
+                                <i class="fas fa-user-plus me-2"></i>Registrar-se
+                            </button>
+                            <button class="btn btn-outline-primary btn-lg" onclick="showTree()">
+                                <i class="fas fa-tree me-2"></i>Ver Árvore
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="family-stats">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="stat-card">
+                                        <i class="fas fa-users"></i>
+                                        <h3 id="totalPersons">0</h3>
+                                        <p>Pessoas Cadastradas</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="stat-card">
+                                        <i class="fas fa-layer-group"></i>
+                                        <h3 id="totalGenerations">0</h3>
+                                        <p>Gerações</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="stat-card">
+                                        <i class="fas fa-user-friends"></i>
+                                        <h3 id="totalUsers">0</h3>
+                                        <p>Usuários Conectados</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="stat-card">
+                                        <i class="fas fa-calendar"></i>
+                                        <h3>1850</h3>
+                                        <p>Desde</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tree Section -->
+        <section id="tree" class="py-5 d-none">
+            <div class="container">
+                <h2 class="text-center mb-5">Árvore Genealógica da Família Baroni</h2>
+                <div id="treeContainer" class="tree-container">
+                    <!-- Tree will be rendered here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile" class="py-5 d-none">
+            <div class="container">
+                <h2 class="text-center mb-5">Meu Perfil</h2>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <div id="profileContent">
+                                    <!-- Profile content will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Entrar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="loginEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Senha</label>
+                            <input type="password" class="form-control" id="loginPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Entrar</button>
+                    </form>
+                    <hr>
+                    <button class="btn btn-primary w-100" style="background-color: #1877f2;">
+                        <i class="fab fa-facebook-f me-2"></i>Entrar com Facebook
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Registrar-se</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="registerForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="registerName" class="form-label">Nome Completo</label>
+                                    <input type="text" class="form-control" id="registerName" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="registerEmail" class="form-label">E-mail</label>
+                                    <input type="email" class="form-control" id="registerEmail" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="registerPassword" class="form-label">Senha</label>
+                                    <input type="password" class="form-control" id="registerPassword" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="registerBirthDate" class="form-label">Data de Nascimento</label>
+                                    <input type="date" class="form-control" id="registerBirthDate" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h6 class="mt-4 mb-3">Informações dos Pais</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="fatherName" class="form-label">Nome do Pai</label>
+                                    <input type="text" class="form-control" id="fatherName">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="motherName" class="form-label">Nome da Mãe</label>
+                                    <input type="text" class="form-control" id="motherName">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h6 class="mt-4 mb-3">Informações dos Avós (Opcional)</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="grandfatherPaternal" class="form-label">Avô Paterno</label>
+                                    <input type="text" class="form-control" id="grandfatherPaternal">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="grandmotherPaternal" class="form-label">Avó Paterna</label>
+                                    <input type="text" class="form-control" id="grandmotherPaternal">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="grandfatherMaternal" class="form-label">Avô Materno</label>
+                                    <input type="text" class="form-control" id="grandfatherMaternal">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="grandmotherMaternal" class="form-label">Avó Materna</label>
+                                    <input type="text" class="form-control" id="grandmotherMaternal">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100">Registrar</button>
+                    </form>
+                    <hr>
+                    <button class="btn btn-primary w-100" style="background-color: #1877f2;">
+                        <i class="fab fa-facebook-f me-2"></i>Registrar com Facebook
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
+
+        <!-- Social Network Section -->
+        <section id="social" class="py-5 d-none">
+            <div class="container">
+                <h2 class="text-center mb-5">Rede Social da Família</h2>
+                
+                <!-- Create Post -->
+                <div class="row justify-content-center mb-4">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5>Compartilhe com a família</h5>
+                                <form id="postForm">
+                                    <div class="mb-3">
+                                        <textarea class="form-control" id="postContent" rows="3" placeholder="O que você gostaria de compartilhar?"></textarea>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <select class="form-select" id="postVisibility" style="width: auto;">
+                                                <option value="family">Família</option>
+                                                <option value="public">Público</option>
+                                                <option value="private">Privado</option>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-share me-1"></i>Compartilhar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Posts Feed -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div id="postsContainer">
+                            <!-- Posts will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Connections Section -->
+        <section id="connections" class="py-5 d-none">
+            <div class="container">
+                <h2 class="text-center mb-5">Minhas Conexões</h2>
+                
+                <!-- Search Users -->
+                <div class="row justify-content-center mb-4">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5>Encontrar Parentes</h5>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="searchUsers" placeholder="Buscar por nome...">
+                                    <button class="btn btn-outline-primary" onclick="searchUsers()">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                                <div id="searchResults" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pending Connections -->
+                <div class="row justify-content-center mb-4">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5>Solicitações Pendentes</h5>
+                                <div id="pendingConnections">
+                                    <!-- Pending connections will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- My Connections -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5>Meus Parentes Conectados</h5>
+                                <div id="myConnections">
+                                    <!-- Connections will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="py-5 d-none">
+            <div class="container">
+                <h2 class="text-center mb-5">Galeria da Família</h2>
+                
+                <!-- Upload Section -->
+                <div class="row justify-content-center mb-4">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5>Compartilhar Fotos e Documentos</h5>
+                                <form id="uploadForm" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="fileInput" class="form-label">Selecionar Arquivo</label>
+                                                <input type="file" class="form-control" id="fileInput" accept="image/*,.pdf,.doc,.docx,.txt" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="fileTitle" class="form-label">Título</label>
+                                                <input type="text" class="form-control" id="fileTitle" placeholder="Título do arquivo">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fileDescription" class="form-label">Descrição</label>
+                                        <textarea class="form-control" id="fileDescription" rows="2" placeholder="Descreva o arquivo..."></textarea>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="fileTags" class="form-label">Tags</label>
+                                                <input type="text" class="form-control" id="fileTags" placeholder="família, casamento, aniversário...">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="filePersonId" class="form-label">Associar à Pessoa</label>
+                                                <select class="form-select" id="filePersonId">
+                                                    <option value="">Selecione uma pessoa (opcional)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="fileIsPublic" checked>
+                                            <label class="form-check-label" for="fileIsPublic">
+                                                Visível para toda a família
+                                            </label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-upload me-1"></i>Enviar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Filter Section -->
+                <div class="row justify-content-center mb-4">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4">
+                                        <select class="form-select" id="fileTypeFilter">
+                                            <option value="all">Todos os tipos</option>
+                                            <option value="image">Apenas Imagens</option>
+                                            <option value="document">Apenas Documentos</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-select" id="personFilter">
+                                            <option value="">Todas as pessoas</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button class="btn btn-outline-primary w-100" onclick="loadFiles()">
+                                            <i class="fas fa-filter me-1"></i>Filtrar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Files Grid -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <div id="filesContainer" class="row">
+                            <!-- Files will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Albums Section -->
+        <section id="albums" class="py-5 d-none">
+            <div class="container">
+                <h2 class="text-center mb-5">Álbuns de Fotos</h2>
+                
+                <!-- Create Album -->
+                <div class="row justify-content-center mb-4">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5>Criar Novo Álbum</h5>
+                                <form id="albumForm">
+                                    <div class="mb-3">
+                                        <label for="albumName" class="form-label">Nome do Álbum</label>
+                                        <input type="text" class="form-control" id="albumName" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="albumDescription" class="form-label">Descrição</label>
+                                        <textarea class="form-control" id="albumDescription" rows="2"></textarea>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="albumIsPublic" checked>
+                                            <label class="form-check-label" for="albumIsPublic">
+                                                Álbum público
+                                            </label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-plus me-1"></i>Criar Álbum
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Albums Grid -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <div id="albumsContainer" class="row">
+                            <!-- Albums will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+        <!-- Forum Section -->
+        <section id="forum" class="py-5 d-none">
+            <div class="container">
+                <h2 class="text-center mb-5">Fórum da Família</h2>
+                
+                <!-- Forum Categories -->
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Categorias do Fórum</h5>
+                                <button class="btn btn-primary btn-sm" onclick="showCreateTopicModal()">
+                                    <i class="fas fa-plus me-1"></i>Novo Tópico
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div id="forumCategories">
+                                    <!-- Categories will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Recent Topics -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">Tópicos Recentes</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="recentTopics">
+                                    <!-- Recent topics will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Forum Sidebar -->
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">Buscar no Fórum</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="forumSearch" placeholder="Buscar tópicos...">
+                                    <button class="btn btn-outline-primary" onclick="searchForum()">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                                <div id="forumSearchResults" class="mt-3"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-3">
+                            <div class="card-header">
+                                <h6 class="mb-0">Estatísticas</h6>
+                            </div>
+                            <div class="card-body">
+                                <div id="forumStats">
+                                    <!-- Forum stats will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Topic View Section -->
+        <section id="topic" class="py-5 d-none">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div id="topicContent">
+                            <!-- Topic content will be loaded here -->
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">Informações do Tópico</h6>
+                            </div>
+                            <div class="card-body">
+                                <div id="topicInfo">
+                                    <!-- Topic info will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guestbook Section -->
+        <section id="guestbook" class="py-5 d-none">
+            <div class="container">
+                <h2 class="text-center mb-5">Livro de Visitas</h2>
+                
+                <!-- Add Entry Form -->
+                <div class="row justify-content-center mb-5">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Deixe sua Mensagem</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="guestbookForm">
+                                    <div class="row" id="anonymousFields" style="display: none;">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="guestName" class="form-label">Nome</label>
+                                                <input type="text" class="form-control" id="guestName">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="guestEmail" class="form-label">E-mail (opcional)</label>
+                                                <input type="email" class="form-control" id="guestEmail">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="guestMessage" class="form-label">Mensagem</label>
+                                        <textarea class="form-control" id="guestMessage" rows="4" placeholder="Compartilhe suas memórias, pensamentos ou mensagens para a família..." required></textarea>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="text-muted" id="userInfo"></span>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-pen me-1"></i>Assinar Livro
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Guestbook Entries -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <div id="guestbookEntries">
+                            <!-- Entries will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Create Topic Modal -->
+    <div class="modal fade" id="createTopicModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Criar Novo Tópico</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createTopicForm">
+                        <div class="mb-3">
+                            <label for="topicCategory" class="form-label">Categoria</label>
+                            <select class="form-select" id="topicCategory" required>
+                                <option value="">Selecione uma categoria</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="topicTitle" class="form-label">Título</label>
+                            <input type="text" class="form-control" id="topicTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="topicContent" class="form-label">Conteúdo</label>
+                            <textarea class="form-control" id="topicContent" rows="6" required></textarea>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Criar Tópico</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
